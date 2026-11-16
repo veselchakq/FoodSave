@@ -19,7 +19,7 @@ def forecast_stats(h, target):
     sample = same if len(same) >= 2 else h.sort_values("date").tail(14)
     return (float(sample.sold.mean()), float(sample.sold.std(ddof=1)) if len(sample)>1 else 0.0, len(sample)) if len(sample) else (0,0,0)
 
-demo = pd.read_csv(DATA/"sample_data.csv", parse_dates=["date"])
+demo = pd.read_csv("sample_data.csv", parse_dates=["date"])
 actual = read(ACTUAL, ["date","dish","sold","prepared","wasted","opening_stock","source"])
 saved = read(FORECASTS, ["date","dish","forecast_sold","recommended_prepare"])
 history = pd.concat([demo, actual], ignore_index=True).drop_duplicates(["date","dish"], keep="last")
